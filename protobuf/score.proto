@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package score;
 
-service Score{
+service Score {
     rpc Set (SetMessage) returns (SetReply) {
     }
     rpc Get (GetMessage) returns (GetReply) {
@@ -28,11 +28,21 @@ service Score{
 //
 // Message
 //
-message SetMessage{}
-message GetMessage{}
-message ResetMessage{}
+message SetMessage {
+    string nom = 1;
+    int32 score = 2;
+}
+message GetMessage {
+    string nom = 1;
+}
+message ResetMessage {
+}
 
 
-message SetReply{}
-message GetReply{}
-message ResetReply{}
+message SetReply {
+}
+message GetReply {
+    int32 score = 1;
+}
+message ResetReply {
+}
