@@ -7,6 +7,10 @@ import (
 
 type server struct{}
 
+const (
+        Port = 50051
+)
+
 //<editor-fold desc="impl SetpongServer">
 func (s *server) Set(context.Context, *score.SetMessage) (*score.SetReply, error) {
         return nil, nil
