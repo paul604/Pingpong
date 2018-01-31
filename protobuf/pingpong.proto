@@ -18,13 +18,13 @@ package pingpong;
 
 service Pingpong {
 
-    rpc ping (PingMessage) returns (PingReply) {
+    rpc Ping (PingMessage) returns (PingReply) {
     }
-    rpc pong (PongMessage) returns (PongReply) {
+    rpc Pong (PongMessage) returns (PongReply) {
     }
-    rpc start (StartMessage) returns (StartReply) {
+    rpc Start (StartMessage) returns (StartReply) {
     }
-    rpc stop (StopMessage) returns (StopReply) {
+    rpc Stop (StopMessage) returns (StopReply) {
     }
 }
 
