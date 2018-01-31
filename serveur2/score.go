@@ -5,15 +5,15 @@ import (
         "net"
         "log"
         "google.golang.org/grpc/reflection"
-        "net/http"
         "google.golang.org/grpc"
         "golang.org/x/net/context"
+        "fmt"
 )
 
 type server struct{}
 
 const (
-        port = "50051"
+        port = ":50051"
 )
 
 var scores = map[string]int32{}
@@ -21,13 +21,16 @@ var scores = map[string]int32{}
 //<editor-fold desc="impl SetpongServer">
 func (s *server) Set(ctx context.Context, msg *score.SetMessage) (*score.SetReply, error) {
         scores[msg.Nom] = msg.Score
+        fmt.Printf("Set: %s %v\n", msg.Nom, msg.Score)
         return &score.SetReply{}, nil
 }
 func (s *server) Get(ctx context.Context, msg *score.GetMessage) (*score.GetReply, error) {
+        fmt.Printf("Get: %s %v\n", msg.Nom,  scores[msg.Nom])
         return &score.GetReply{Score: scores[msg.Nom]}, nil
 }
 func (s *server) Reset(context.Context, *score.ResetMessage) (*score.ResetReply, error) {
-        for key := range scores{
+        fmt.Println("Reset")
+        for key := range scores {
                 scores[key] = 0
         }
         return &score.ResetReply{}, nil
@@ -35,9 +38,6 @@ func (s *server) Reset(context.Context, *score.ResetMessage) (*score.ResetReply,
 //</editor-fold>
 
 func main() {
-
-        http.ListenAndServe("localhost:"+port, nil)
-
         lis, err := net.Listen("tcp", port)
         if err != nil {
                 log.Fatalf("failed to listen: %v", err)
